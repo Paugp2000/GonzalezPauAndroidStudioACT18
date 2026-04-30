@@ -3,6 +3,7 @@ package com.example.gonzalezpauandroidstact18
 // MainActivity.kt
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var totalPriceTextView: TextView
     private lateinit var products: List<Product>
-    private val quantities = mutableMapOf<Int, Int>()
+    private val quantities = HashMap<Int, Int>();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initProducts() {
+
         products = listOf(
             Product(1, "Pomes", 1.20, R.drawable.manzana),
             Product(2, "Plàtans", 0.80, R.drawable.banana),
@@ -48,10 +50,11 @@ class MainActivity : AppCompatActivity() {
         totalPriceTextView = findViewById(R.id.totalPriceTextView)
         val summaryButton = findViewById<Button>(R.id.summaryButton)
 
+
         summaryButton.setOnClickListener {
             val intent = Intent(this, SummaryActivity::class.java)
-            intent.putExtra("quantities", ArrayList(quantities.entries))
-            intent.putExtra("products", ArrayList(products))
+            intent.putExtra("product_ids", ArrayList(quantities.keys))
+            intent.putExtra("quantities", HashMap(quantities))
             startActivity(intent)
         }
 

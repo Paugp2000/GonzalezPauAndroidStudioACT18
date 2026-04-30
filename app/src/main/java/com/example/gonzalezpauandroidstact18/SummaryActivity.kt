@@ -46,6 +46,8 @@ class SummaryActivity : AppCompatActivity() {
 
         totalSummaryTextView = findViewById(R.id.totalSummaryTextView)
         updateTotalSummary(summaryItems)
+
+
     }
 
     private fun setupButtons() {
@@ -68,7 +70,7 @@ class SummaryActivity : AppCompatActivity() {
     }
 
     private fun confirmPurchase() {
-        val quantities = intent.getSerializableExtra("quantities") as? ArrayList<*> ?: return
+        val quantities = intent.getSerializableExtra("quantities") as? HashMap<Int, Int> ?: return
         val products = intent.getSerializableExtra("products") as? ArrayList<Product> ?: return
 
         Log.d("COMPRA", "=== CONFIRMACIÓ DE COMPRA ===")

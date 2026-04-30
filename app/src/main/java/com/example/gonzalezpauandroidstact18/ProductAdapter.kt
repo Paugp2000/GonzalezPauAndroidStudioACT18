@@ -1,5 +1,6 @@
 package com.example.gonzalezpauandroidstact18
 
+    import android.util.Log
     import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
@@ -10,7 +11,7 @@ package com.example.gonzalezpauandroidstact18
 
     class ProductAdapter(
         private val products: List<Product>,
-        private var quantities: MutableMap<Int, Int>,
+        private var quantities: HashMap<Int, Int>,
         private val onQuantityChanged: (Int, Int) -> Unit
     ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
@@ -35,10 +36,9 @@ package com.example.gonzalezpauandroidstact18
             holder.nameTextView.text = product.name
             holder.priceTextView.text = String.format("%.2f€", product.price)
 
-            val currentQuantity = quantities[product.id] ?: 0
-            holder.quantityTextView.text = currentQuantity.toString()
 
             holder.addButton.setOnClickListener {
+                val currentQuantity = quantities[product.id] ?: 0
                 val newQuantity = currentQuantity + 1
                 quantities[product.id] = newQuantity
                 holder.quantityTextView.text = newQuantity.toString()
@@ -46,6 +46,8 @@ package com.example.gonzalezpauandroidstact18
             }
 
             holder.removeButton.setOnClickListener {
+                val currentQuantity = quantities[product.id] ?: 0
+
                 if (currentQuantity > 0) {
                     val newQuantity = currentQuantity - 1
                     quantities[product.id] = newQuantity
